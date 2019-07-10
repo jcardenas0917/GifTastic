@@ -1,12 +1,15 @@
 #container {
     height: 1000px;
-    background-color: red;
+    
 }
 
 #buttons{
-    background-color:green;
+   
     height: 100px;
 }
 .diplayGif{
-    background-color:blue;
+    
+}
+.gif-div{
+    float: right;
 }

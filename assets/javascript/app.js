@@ -1,28 +1,27 @@
 
-
-var click=[];
+//Create object
 var topic = {
-    searches: ["will smith", "zach braff", "eminem", "jlo"],
+    searches: ["will smith", "zach braff", "eminem", "jennifer lopez"],
 
-
+    //Function adds the buttons in the array.
     addButton: function () {
-        for (var j = 0; j < this.searches.length; j++) {
+        for (var i = 0; i < this.searches.length; i++) {
             var buttonContainer = $("#buttons");
             var addButton = $("<button class='diplayGif'></button>");
-            addButton.text(this.searches[j]);
-            addButton.attr("data-index", this.searches[j])
-            console.log(this.searches[j])
+            addButton.text(this.searches[i]);
+            addButton.attr("data-index", this.searches[i])
+            console.log(this.searches[i])
             buttonContainer.append(addButton);
         }
     },
 
-
+    //Function grabs the gif from the API properties
     addGiphy: function (response) {
         console.log(response.data)
         for (var i = 0; i < response.data.length; i++) {
             var responseData = response.data[i];
-            var image = responseData.images.original_still.url;
-            var gif = responseData.images.original.url;
+            var image = responseData.images.fixed_height_small_still.url;
+            var gif = responseData.images.fixed_height_small.url;
             var rating = responseData.rating;
 
             var gifDiv = $("<div class='gif-div'>");
@@ -46,6 +45,8 @@ var topic = {
 
         }
     },
+
+    //Function to add users input to the array of buttons
     searchResult: function () {
         var userInput = $("#userInput").val();
         console.log(userInput);
@@ -57,6 +58,7 @@ var topic = {
         console.log(this.searches);
     },
 
+    //Makes the call to retrieve the API
     getGiphy: function (name) {
         var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=06B2Bg9ig9lL50TsmsBYrUHh1HmhT8YC&q=" + name + "&limit=25&offset=0&rating=G&lang=en";
 
@@ -70,34 +72,44 @@ var topic = {
 
 
 //-------------------------------------------------------------------------------------------------------------
+
+//Loads page and adds the buttons in the array
 window.onload = function () {
     topic.addButton();
 }
-// for (var i = 0; i < topic.searches.length; i++) {
-//          console.log(topic.searches[i])
-//         topic.getGiphy(topic.searches[i]);
-//     }
 
 
+//submit calls the function searchResult to add the button
 $("#submit").on("click", function () {
     event.preventDefault();
     topic.searchResult();
 });
 
-$(document).on("click", "button.diplayGif", function() {
-    
+
+//button click pass the index of the button clicked to getGiphy function
+$(document).on("click", "button.diplayGif", function () {
+
     console.log("clicked");
-    // for (var i = 0; i < topic.searches.length; i++) {
-    //      console.log(topic.searches[i])
-    //     topic.getGiphy(topic.searches[i]);
-    // }
     var currentIndex = $(this).attr("data-index");
-    click.push(currentIndex);
     event.preventDefault();
     topic.getGiphy(currentIndex);
     $("#container").empty();
-    click = [];
-   
+    
+
+});
+
+//Click toggles between GIF image and still image.
+$(document).on("click", ".still", function () {
+    console.log("test");
+    // var currentIn = $(this).attr("data-index");
+    var image = $(this).attr("data-img");
+    var gif = $(this).attr("data-gif");
+    // console.log(currentIn);
+    if ($(this).attr("src") === image) {
+        $(this).attr("src", gif)
+    } else if ($(this).attr("src") === gif) {
+        $(this).attr("src", image);
+    };
 });
 
 
