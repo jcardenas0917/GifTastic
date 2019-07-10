@@ -3,7 +3,7 @@
 
 var topic = {
     searches: ["will smith", "zach braff", "eminem", "jennifer lopez"],
-
+    favorite: [],
     //Function adds the buttons in the array.
     addButton: function () {
         for (var i = 0; i < this.searches.length; i++) {
@@ -80,12 +80,12 @@ window.onload = function () {
 
 
 //submit calls the function searchResult to add the button
+    
 $("#submit").on("click", function () {
     event.preventDefault();
     topic.searchResult();
     
 });
-
 
 //button click pass the index of the button clicked to getGiphy function
 $(document).on("click", "button.diplayGif", function () {
@@ -96,21 +96,21 @@ $(document).on("click", "button.diplayGif", function () {
     topic.getGiphy(currentIndex);
     $("#container").empty();
     
-
 });
 
 //Click toggles between GIF image and still image.
 $(document).on("click", ".still", function () {
-    console.log("test");
-    // var currentIn = $(this).attr("data-index");
+   
     var image = $(this).attr("data-img");
     var gif = $(this).attr("data-gif");
-    // console.log(currentIn);
+    topic.favorite.push(image);
+    console.log(topic.favorite)
     if ($(this).attr("src") === image) {
         $(this).attr("src", gif)
     } else if ($(this).attr("src") === gif) {
         $(this).attr("src", image);
     };
 });
+
 
 

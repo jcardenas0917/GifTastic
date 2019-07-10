@@ -11,6 +11,9 @@
 .gif-div{
     float: left;
 }
+.diplayGif{
+   margin-left:2px;
+}
 
 @media screen and (max-width: 579px){
 
@@ -18,4 +21,5 @@
     height: 1800px;
     
 }
+
 }
