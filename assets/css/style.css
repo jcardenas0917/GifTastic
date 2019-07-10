@@ -1,8 +1,9 @@
-
-.gifs{
-    width: 100px;
-    height: 200px;
+#container {
+    height: 1000px;
     background-color: red;
-    margin-top:20px;
 }
 
+#buttons{
+    background-color:green;
+    height: 100px;
+}
