@@ -1,95 +1,103 @@
-var topic ={
-    searches : ["will smith", "zach braff", "eminem", "jlo"]
-
-}
-
-function addTopic(response){
-    console.log(response.data)
-    for (var i = 0; i < response.data.length; i++) {
-        var responseData = response.data[i];
-        var image = responseData.images.fixed_height_still.url;
-        var gif = responseData.images.fixed_height.url;
-        var rating = responseData.rating;
-
-        var gifDiv = $("<div class='gif-div'>");
-        
-
-        var gifImg = $("<img class='still'>");
-
-        gifImg.attr("src", image);
-         gifImg.attr("alt", "gif");
-        gifImg.attr("data-gif", gif);
-        gifImg.attr("data-index", i);
-        gifImg.attr("data-img", image);
 
 
+var click=[];
+var topic = {
+    searches: ["will smith", "zach braff", "eminem", "jlo"],
 
-        gifDiv.append("<p> Rating: " + rating + "</p>");
-        gifDiv.append(gifImg);
 
-        var divContainer = $("#container");
-        divContainer.append($(gifDiv));
-    };
+    addButton: function () {
+        for (var j = 0; j < this.searches.length; j++) {
+            var buttonContainer = $("#buttons");
+            var addButton = $("<button class='diplayGif'></button>");
+            addButton.text(this.searches[j]);
+            addButton.attr("data-index", this.searches[j])
+            console.log(this.searches[j])
+            buttonContainer.append(addButton);
+        }
+    },
 
-};
- function search () {
+
+    addGiphy: function (response) {
+        console.log(response.data)
+        for (var i = 0; i < response.data.length; i++) {
+            var responseData = response.data[i];
+            var image = responseData.images.original_still.url;
+            var gif = responseData.images.original.url;
+            var rating = responseData.rating;
+
+            var gifDiv = $("<div class='gif-div'>");
+
+
+            var gifImg = $("<img class='still'>");
+
+            gifImg.attr("src", image);
+            gifImg.attr("alt", "still-image");
+            gifImg.attr("data-gif", gif);
+            gifImg.attr("data-index", i);
+            gifImg.attr("data-img", image);
+
+
+
+            gifDiv.append("<p> Rating: " + rating + "</p>");
+            gifDiv.append(gifImg);
+
+            var divContainer = $("#container");
+            divContainer.append($(gifDiv));
+
+        }
+    },
+    searchResult: function () {
         var userInput = $("#userInput").val();
         console.log(userInput);
-        topic.searches.push(userInput);
-        var newButton = $("<button class='topic'>").text(userInput);
-        // .attr("data-index", userInput);
+        this.searches.push(userInput);
+        var newButton = $("<button class='diplayGif'></button>").text(userInput)
+        newButton.attr("data-index", userInput);
         var buttonContainer = $("#buttons");
         buttonContainer.append(newButton);
-        console.log(topic.searches);
-  }
+        console.log(this.searches);
+    },
+
+    getGiphy: function (name) {
+        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=06B2Bg9ig9lL50TsmsBYrUHh1HmhT8YC&q=" + name + "&limit=25&offset=0&rating=G&lang=en";
+
+        console.log(queryURL);
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(topic.addGiphy);
+    },
+};
 
 
-    for(var i = 0; i < topic.searches.length; i++){
-        console.log(topic.searches[i])
-        getGiphy(topic.searches[i]);
-    }
-
-
-
-function addButton(){
-    for (var j = 0; j < topic.searches.length; j++) {
-        var buttonContainer = $("#buttons");
-        var addButton = $("<button class='topic'></button>");
-        addButton.text(topic.searches[j]);
-        addButton.attr("data-index", topic.searches[j])
-        console.log(topic.searches[j])
-        buttonContainer.append(addButton);
-    }
-}
-function getGiphy(name) {
-    var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=06B2Bg9ig9lL50TsmsBYrUHh1HmhT8YC&q=" + name + "&limit=25&offset=0&rating=G&lang=en";
-
-    console.log(queryURL);
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(addTopic);
-}
-
+//-------------------------------------------------------------------------------------------------------------
 window.onload = function () {
-addButton();
+    topic.addButton();
 }
+// for (var i = 0; i < topic.searches.length; i++) {
+//          console.log(topic.searches[i])
+//         topic.getGiphy(topic.searches[i]);
+//     }
 
 
-
-$("#submit").on("click", function (event) {
+$("#submit").on("click", function () {
     event.preventDefault();
-    addButton();
+    topic.searchResult();
 });
 
-$().on("click", function (event) {
+$(document).on("click", "button.diplayGif", function() {
+    
+    console.log("clicked");
+    // for (var i = 0; i < topic.searches.length; i++) {
+    //      console.log(topic.searches[i])
+    //     topic.getGiphy(topic.searches[i]);
+    // }
     var currentIndex = $(this).attr("data-index");
-    lastClick.push(currentIndex);
-    console.log(currentIndex);
+    click.push(currentIndex);
     event.preventDefault();
-    $("#append-img-div").empty();
-    killersGifs.divLoop();
-    lastClick = [];
+    topic.getGiphy(currentIndex);
+    $("#container").empty();
+    click = [];
+   
 });
 
 
