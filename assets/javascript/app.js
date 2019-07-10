@@ -81,11 +81,16 @@ window.onload = function () {
 
 //submit calls the function searchResult to add the button
     
-$("#submit").on("click", function () {
+$("#submit").on("click", function (event) {
     event.preventDefault();
     topic.searchResult();
     
 });
+
+$( "#user" ).submit(function( event ) {
+    event.preventDefault();
+    topic.searchResult();
+  });
 
 //button click pass the index of the button clicked to getGiphy function
 $(document).on("click", "button.diplayGif", function () {
