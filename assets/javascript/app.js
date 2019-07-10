@@ -1,5 +1,6 @@
 
 //Create object
+
 var topic = {
     searches: ["will smith", "zach braff", "eminem", "jennifer lopez"],
 
@@ -7,7 +8,7 @@ var topic = {
     addButton: function () {
         for (var i = 0; i < this.searches.length; i++) {
             var buttonContainer = $("#buttons");
-            var addButton = $("<button class='diplayGif'></button>");
+            var addButton = $("<button type = 'button' class='btn btn-primary diplayGif'></button>");
             addButton.text(this.searches[i]);
             addButton.attr("data-index", this.searches[i])
             console.log(this.searches[i])
@@ -17,7 +18,6 @@ var topic = {
 
     //Function grabs the gif from the API properties
     addGiphy: function (response) {
-        console.log(response.data)
         for (var i = 0; i < response.data.length; i++) {
             var responseData = response.data[i];
             var image = responseData.images.fixed_height_small_still.url;
@@ -51,11 +51,11 @@ var topic = {
         var userInput = $("#userInput").val();
         console.log(userInput);
         this.searches.push(userInput);
-        var newButton = $("<button class='diplayGif'></button>").text(userInput)
+        var newButton = $("<button type = 'button' class='btn btn-primary diplayGif'></button>").text(userInput)
         newButton.attr("data-index", userInput);
         var buttonContainer = $("#buttons");
         buttonContainer.append(newButton);
-        console.log(this.searches);
+        userInput = $("#userInput").val("");
     },
 
     //Makes the call to retrieve the API
@@ -83,6 +83,7 @@ window.onload = function () {
 $("#submit").on("click", function () {
     event.preventDefault();
     topic.searchResult();
+    
 });
 
 

@@ -1,5 +1,5 @@
 #container {
-    height: 1000px;
+    height: 800px;
     
 }
 
@@ -7,9 +7,15 @@
    
     height: 100px;
 }
-.diplayGif{
+
+.gif-div{
+    float: left;
+}
+
+@media screen and (max-width: 579px){
+
+#container {
+    height: 1800px;
     
 }
-.gif-div{
-    float: right;
 }
