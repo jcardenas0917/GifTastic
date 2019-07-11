@@ -55,9 +55,15 @@ var topic = {
     submitClick: function () {
         event.preventDefault();
         var userInput = $("#userInput").val();
+
+        //this will check if the user click on submit without typing a topic to avoid empty buttons.
+        if (userInput === ""){
+            alert("Please type a topic first")
+        }else{
         topic.searches.push(userInput);
         topic.addButton();
         $("#userInput").val("");
+        }
     }
 };
 

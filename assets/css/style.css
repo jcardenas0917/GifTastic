@@ -1,6 +1,7 @@
 #container {
-    height: 800px;
-    
+    height: 1000px;
+    border-style:solid;
+    border-color:green
 }
 
 #buttons{
@@ -13,6 +14,9 @@
 }
 .diplayGif{
    margin-left:2px;
+}
+.still{
+    margin-left: 2px;
 }
 
 @media screen and (max-width: 579px){
