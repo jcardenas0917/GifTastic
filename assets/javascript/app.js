@@ -6,13 +6,13 @@ var topic = {
     favorite: [],
     //Function adds the buttons in the array.
     addButton: function () {
+        $("#buttons").empty();
         for (var i = 0; i < this.searches.length; i++) {
-            var buttonContainer = $("#buttons");
             var addButton = $("<button type = 'button' class='btn btn-primary diplayGif'></button>");
             addButton.text(this.searches[i]);
             addButton.attr("data-index", this.searches[i])
             console.log(this.searches[i])
-            buttonContainer.append(addButton);
+            $("#buttons").append(addButton);
         }
     },
 
@@ -46,18 +46,6 @@ var topic = {
         }
     },
 
-    //Function to add users input to the array of buttons
-    searchResult: function () {
-        var userInput = $("#userInput").val();
-        console.log(userInput);
-        this.searches.push(userInput);
-        var newButton = $("<button type = 'button' class='btn btn-primary diplayGif'></button>").text(userInput)
-        newButton.attr("data-index", userInput);
-        var buttonContainer = $("#buttons");
-        buttonContainer.append(newButton);
-        userInput = $("#userInput").val("");
-    },
-
     //Makes the call to retrieve the API
     getGiphy: function (name) {
         var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=06B2Bg9ig9lL50TsmsBYrUHh1HmhT8YC&q=" + name + "&limit=25&offset=0&rating=G&lang=en";
@@ -83,13 +71,16 @@ window.onload = function () {
     
 $("#submit").on("click", function (event) {
     event.preventDefault();
-    topic.searchResult();
+    var userInput = $("#userInput").val();
+        console.log(userInput);
+        topic.searches.push(userInput);
+    topic.addButton();
     
 });
 
 $( "#user" ).submit(function( event ) {
     event.preventDefault();
-    topic.searchResult();
+    topic.addButton();
   });
 
 //button click pass the index of the button clicked to getGiphy function
