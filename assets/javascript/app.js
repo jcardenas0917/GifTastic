@@ -10,8 +10,7 @@ var topic = {
         for (var i = 0; i < this.searches.length; i++) {
             var addButton = $("<button type = 'button' class='btn btn-primary diplayGif'></button>");
             addButton.text(this.searches[i]);
-            addButton.attr("data-index", this.searches[i])
-            console.log(this.searches[i])
+            addButton.attr("data-index", this.searches[i]);
             $("#buttons").append(addButton);
         }
     },
@@ -25,8 +24,6 @@ var topic = {
             var rating = responseData.rating;
 
             var gifDiv = $("<div class='gif-div'>");
-
-
             var gifImg = $("<img class='still'>");
 
             gifImg.attr("src", image);
@@ -34,8 +31,6 @@ var topic = {
             gifImg.attr("data-gif", gif);
             gifImg.attr("data-index", i);
             gifImg.attr("data-img", image);
-
-
 
             gifDiv.append("<p> Rating: " + rating + "</p>");
             gifDiv.append(gifImg);
@@ -56,10 +51,10 @@ var topic = {
             method: "GET"
         }).then(topic.addGiphy);
     },
+
     submitClick: function () {
         event.preventDefault();
         var userInput = $("#userInput").val();
-
         topic.searches.push(userInput);
         topic.addButton();
         $("#userInput").val("");
@@ -89,7 +84,6 @@ $("#user").submit(function (event) {
 //button click pass the index of the button clicked to getGiphy function
 $(document).on("click", "button.diplayGif", function (event) {
 
-    console.log("clicked");
     var currentIndex = $(this).attr("data-index");
     event.preventDefault();
     topic.getGiphy(currentIndex);
@@ -103,9 +97,8 @@ $(document).on("click", ".still", function (event) {
     var image = $(this).attr("data-img");
     var gif = $(this).attr("data-gif");
     topic.favorite.push(image);
-    console.log(topic.favorite)
     if ($(this).attr("src") === image) {
-        $(this).attr("src", gif)
+        $(this).attr("src", gif);
     } else if ($(this).attr("src") === gif) {
         $(this).attr("src", image);
     };
