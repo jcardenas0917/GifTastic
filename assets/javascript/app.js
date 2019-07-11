@@ -56,6 +56,14 @@ var topic = {
             method: "GET"
         }).then(topic.addGiphy);
     },
+    submitClick: function () {
+        event.preventDefault();
+        var userInput = $("#userInput").val();
+
+        topic.searches.push(userInput);
+        topic.addButton();
+        $("#userInput").val("");
+    }
 };
 
 
@@ -70,24 +78,16 @@ window.onload = function () {
 //submit calls the function searchResult to add the button
 
 $("#submit").on("click", function (event) {
-    event.preventDefault();
-    var userInput = $("#userInput").val();
-
-    topic.searches.push(userInput);
-    topic.addButton();
+    topic.submitClick()
 
 });
 
 $("#user").submit(function (event) {
-    event.preventDefault();
-    var userInput = $("#userInput").val();
-
-    topic.searches.push(userInput);
-    topic.addButton();
+    topic.submitClick()
 });
 
 //button click pass the index of the button clicked to getGiphy function
-$(document).on("click", "button.diplayGif", function () {
+$(document).on("click", "button.diplayGif", function (event) {
 
     console.log("clicked");
     var currentIndex = $(this).attr("data-index");
@@ -98,8 +98,8 @@ $(document).on("click", "button.diplayGif", function () {
 });
 
 //Click toggles between GIF image and still image.
-$(document).on("click", ".still", function () {
-
+$(document).on("click", ".still", function (event) {
+    event.preventDefault();
     var image = $(this).attr("data-img");
     var gif = $(this).attr("data-gif");
     topic.favorite.push(image);
