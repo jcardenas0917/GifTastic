@@ -3,7 +3,6 @@
 
 var topic = {
     searches: ["will smith", "zach braff", "eminem", "jennifer lopez"],
-    favorite: [],
     //Function adds the buttons in the array.
     addButton: function () {
         $("#buttons").empty();
@@ -102,7 +101,6 @@ $(document).on("click", ".still", function (event) {
     event.preventDefault();
     var image = $(this).attr("data-img");
     var gif = $(this).attr("data-gif");
-    topic.favorite.push(image);
     if ($(this).attr("src") === image) {
         $(this).attr("src", gif);
     } else if ($(this).attr("src") === gif) {
