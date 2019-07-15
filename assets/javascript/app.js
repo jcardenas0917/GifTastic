@@ -41,8 +41,8 @@ var topic = {
     },
 
     //Makes the call to retrieve the API
-    getGiphy: function (name) {
-        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=06B2Bg9ig9lL50TsmsBYrUHh1HmhT8YC&q=" + name + "&limit=25&offset=0&rating=G&lang=en";
+    getGiphy: function (name,limit) {
+        var queryURL = "https://api.giphy.com/v1/gifs/search?api_key=06B2Bg9ig9lL50TsmsBYrUHh1HmhT8YC&q=" + name + "&limit=" + limit +"&offset=0&rating=G&lang=en";
 
         console.log(queryURL);
         $.ajax({
@@ -88,12 +88,12 @@ $("#user").submit(function (event) {
 
 //button click pass the index of the button clicked to getGiphy function
 $(document).on("click", "button.diplayGif", function (event) {
-
+    var result = $("#resultLimit").val();
     var currentIndex = $(this).attr("data-index");
     event.preventDefault();
-    topic.getGiphy(currentIndex);
+    topic.getGiphy(currentIndex,result);
     $("#container").empty();
-
+    $("#resultLimit").val('');
 });
 
 //Click toggles between GIF image and still image.
